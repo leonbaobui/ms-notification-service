@@ -1,0 +1,4 @@
+[submodule "src/main/resources/common-database-ods"]
+	path = src/main/resources/common-database-ods
+	url = git@github.com:leonbaobui/common-database-ods.git
+	branch = chores/ms-user
