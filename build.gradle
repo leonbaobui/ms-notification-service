@@ -42,9 +42,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web:3.2.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.0'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator:3.2.1'
-	implementation 'org.projectlombok:lombok'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
 	implementation 'io.github.resilience4j:resilience4j-circuitbreaker:2.1.0'
+	implementation 'io.github.resilience4j:resilience4j-annotations:2.1.0'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 
 	implementation 'io.github.leonbaobui:common-lib:0.0.6-SNAPSHOT'
 
