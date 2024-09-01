@@ -16,7 +16,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
             "FROM Notification notification " +
             "WHERE notification.userId = :userId " +
             "AND notification.tweetId = :tweetId " +
-            "AND notification.authUserId = :authUserId " +
+            "AND notification.userId = :authUserId " +
             "AND notification.notificationType = :notificationType")
     boolean isTweetNotificationExists(@Param("userId") Long userId,
                                       @Param("tweetId") Long tweetId,
