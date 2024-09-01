@@ -46,7 +46,7 @@ service:
 
 eureka:
   instance:
-    hostname: # Public domain name
+    hostname: https://ms-notification-service.onrender.com # Public domain name
     nonSecurePort: 443  # Standard HTTP port
     securePortEnabled: true  # Enable if you're using HTTPS
     preferIpAddress: false  # Use the hostname instead of the IP address
