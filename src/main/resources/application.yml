@@ -1,0 +1,43 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port : 8080
+  servlet:
+    context-path: /ms-notification-service
+
+spring:
+  application:
+    name: ms-notification-service
+  flyway:
+    enabled: true
+    baseline-on-migrate : true
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+#      This config will override the flyway because it will drop the user schema flyway
+#      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/ms_notification_service
+    username: postgres
+    password: root
+    driverClassName: org.postgresql.Driver
+
+infrastructure:
+  services:
+    feign:
+      request-interceptor:
+        enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: ${EUREKA_HOST:localhost}
