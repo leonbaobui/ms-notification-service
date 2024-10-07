@@ -1,0 +1,59 @@
+management:
+  trace:
+    enabled: true
+    include: AUTHORIZATION_HEADER, COOKIE_HEADERS, PRINCIPAL, REMOTE_ADDRESS, REQUEST_HEADERS, RESPONSE_HEADERS, SESSION_ID, TIME_TAKEN
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLogging: DEBUG
+    org.springframework.web.HttpLogging: TRACE
+    reactor.netty.http.server: TRACE
+    reactor.netty.http.client: TRACE
+
+server:
+  port : 8443
+  forward-headers-strategy: framework
+  servlet:
+    context-path: /ms-notification-service
+
+spring:
+  application:
+    name: ms-notification-service
+  flyway:
+    enabled: true
+    baseline-on-migrate : true
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+#      This config will override the flyway because it will drop the user schema flyway
+#      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://ep-cold-mud-a1zdq33b-pooler.ap-southeast-1.aws.neon.tech/ms_notification_service?sslmode=require
+    username: ${POSTGRESQL_USERNAME}
+    password: ${POSTGRESQL_PASSWORD}
+    driverClassName: org.postgresql.Driver
+
+service:
+  downstream-url:
+    ms-user-service: https://ms-user-service-irol.onrender.com
+    ms-tweet-service: https://ms-tweet-service-vj9h.onrender.com
+    ms-websocket-service: https://ms-websocket-service-k09k.onrender.com
+
+eureka:
+  instance:
+    hostname: ms-notification-service-c0nv.onrender.com # Public domain name
+    nonSecurePort: 443  # Standard HTTP port
+    securePortEnabled: true  # Enable if you're using HTTPS
+    preferIpAddress: false  # Use the hostname instead of the IP address
+    statusPageUrlPath: /actuator/info  # Default status page path
+    healthCheckUrlPath: /actuator/health  # Default health check path
+  client:
+    serviceUrl:
+      defaultZone: https://ms-eureka-server-2cvn.onrender.com/eureka
+    fetch-registry: true
+    register-with-eureka: true
