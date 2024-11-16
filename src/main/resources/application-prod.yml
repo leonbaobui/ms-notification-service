@@ -40,6 +40,8 @@ spring:
 
 service:
   gateway-url: ${MS_GATEWAY_URL}
+  downstream-url:
+    ms-websocket-service: ${MS_WEBSOCKET_URL}
 
 eureka:
   instance:
