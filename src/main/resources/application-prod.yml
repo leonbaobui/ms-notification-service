@@ -39,14 +39,12 @@ spring:
     driverClassName: org.postgresql.Driver
 
 service:
-  downstream-url:
-    ms-user-service: https://ms-user-service-irol.onrender.com
-    ms-tweet-service: https://ms-tweet-service-vj9h.onrender.com
-    ms-websocket-service: https://ms-websocket-service-k09k.onrender.com
+  gateway-url: ${MS_GATEWAY_URL}
 
 eureka:
   instance:
-    hostname: ms-notification-service-c0nv.onrender.com # Public domain name
+#    hostname: ms-notification-service-c0nv.onrender.com # Public domain name
+    hostname: ${MS_NOTIFICATION_HOSTNAME}
     nonSecurePort: 443  # Standard HTTP port
     securePortEnabled: true  # Enable if you're using HTTPS
     preferIpAddress: false  # Use the hostname instead of the IP address
@@ -54,6 +52,6 @@ eureka:
     healthCheckUrlPath: /actuator/health  # Default health check path
   client:
     serviceUrl:
-      defaultZone: https://ms-eureka-server-2cvn.onrender.com/eureka
+      defaultZone: "${MS_EUREKA_URL}/eureka"
     fetch-registry: true
     register-with-eureka: true
