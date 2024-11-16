@@ -15,7 +15,7 @@ import static main.java.com.leon.baobui.constants.PathConstants.CHAT_TWEET_ID;
 import static main.java.com.leon.baobui.constants.PathConstants.NOTIFICATION_TWEET_ID;
 
 @CircuitBreaker(name = TWEET_SERVICE)
-@FeignClient(name = TWEET_SERVICE, url = "${service.downstream-url.ms-tweet-service}", path ="/" + TWEET_SERVICE + API_V1_TWEETS, contextId = "TweetClient", configuration = FeignConfiguration.class)
+@FeignClient(name = TWEET_SERVICE, url = "${service.gateway-url}", path ="/"  + API_V1_TWEETS, contextId = "TweetClient", configuration = FeignConfiguration.class)
 public interface TweetClient {
     @GetMapping(NOTIFICATION_TWEET_ID)
     NotificationTweetResponse getNotificationTweet(@PathVariable("tweetId") Long tweetId);
