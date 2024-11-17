@@ -14,7 +14,7 @@ logging:
     reactor.netty.http.client: TRACE
 
 server:
-  port : 8443
+  port : 443
   forward-headers-strategy: framework
   servlet:
     context-path: /ms-notification-service
@@ -47,8 +47,9 @@ eureka:
   instance:
 #    hostname: ms-notification-service-c0nv.onrender.com # Public domain name
     hostname: ${MS_NOTIFICATION_HOSTNAME}
-    nonSecurePort: 443  # Standard HTTP port
+    securePort: 443  # Standard HTTP port
     securePortEnabled: true  # Enable if you're using HTTPS
+    nonSecurePortEnabled: false
     preferIpAddress: false  # Use the hostname instead of the IP address
     statusPageUrlPath: /actuator/info  # Default status page path
     healthCheckUrlPath: /actuator/health  # Default health check path
