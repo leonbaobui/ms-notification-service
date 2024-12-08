@@ -19,7 +19,7 @@ import static main.java.com.leon.baobui.constants.PathConstants.NOTIFICATION_USE
 import static main.java.com.leon.baobui.constants.PathConstants.NOTIFICATION_USER_USER_ID;
 import static main.java.com.leon.baobui.constants.PathConstants.USER_ID;
 
-@FeignClient(name = USER_SERVICE, url = "${service.gateway-url", path ="/"  + API_V1_USER, contextId = "UserClient", configuration = FeignConfiguration.class)
+@FeignClient(name = USER_SERVICE, url = "${service.gateway-url}", path = API_V1_USER, contextId = "UserClient", configuration = FeignConfiguration.class)
 public interface UserClient {
     @GetMapping(NOTIFICATION_USER_ID)
     void increaseNotificationsCount(@PathVariable("userId") Long userId);
