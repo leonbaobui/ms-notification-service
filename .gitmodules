@@ -1,4 +1,4 @@
-[submodule "src/main/resources/common-database-ods"]
-	path = src/main/resources/common-database-ods
-	url = git@github.com:leonbaobui/common-database-ods.git
-	branch = chores/ms-user
+[submodule "src/main/resources/db/migration"]
+	path = src/main/resources/db/migration
+	url = https://github.com/leonbaobui/common-database-ods.git
+	branch = main
