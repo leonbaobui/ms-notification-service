@@ -22,6 +22,9 @@ server:
 spring:
   application:
     name: ms-notification-service
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER}
+
   flyway:
     enabled: true
     baseline-on-migrate : true

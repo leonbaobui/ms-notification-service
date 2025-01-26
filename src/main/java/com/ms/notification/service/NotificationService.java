@@ -1,15 +1,19 @@
 package com.ms.notification.service;
 
 import lombok.RequiredArgsConstructor;
-
 import com.ms.notification.client.TweetClient;
 import com.ms.notification.client.UserClient;
+import com.ms.notification.kafka.producer.UserNotificationProducer;
 import com.ms.notification.model.Notification;
+import com.ms.notification.model.projection.NotificationProjection;
 import com.ms.notification.repository.NotificationRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import main.java.com.leon.baobui.dto.HeaderResponse;
 import main.java.com.leon.baobui.dto.request.NotificationRequest;
 import main.java.com.leon.baobui.dto.response.notification.NotificationResponse;
 import main.java.com.leon.baobui.dto.response.notification.NotificationTweetResponse;
@@ -20,8 +24,9 @@ import main.java.com.leon.baobui.util.AuthUtil;
 
 @Service
 @RequiredArgsConstructor
-public class NotificationClientService {
+public class NotificationService {
     private final NotificationRepository notificationRepository;
+    private final UserNotificationProducer userNotificationProducer;
     private final BasicMapper basicMapper;
     private final UserClient userClient;
     private final TweetClient tweetClient;
@@ -46,6 +51,13 @@ public class NotificationClientService {
             }
         }
         return convertToNotificationResponse(notification, notificationCondition);
+    }
+
+    public HeaderResponse<NotificationResponse> getUserNotifications(Pageable pageable) {
+        Long authUserId = AuthUtil.getAuthenticatedUserId();
+        userNotificationProducer.resetNotificationCount(authUserId);
+        Page<NotificationProjection> notifications = notificationRepository.getNotificationsByUserId(authUserId, pageable);
+        return basicMapper.getHeaderResponse(notifications, NotificationResponse.class);
     }
 
     private NotificationResponse convertToNotificationResponse(Notification notification, boolean notificationCondition) {

@@ -1,9 +1,8 @@
 package com.ms.notification.controller.api;
 
 import lombok.RequiredArgsConstructor;
-
 import com.ms.notification.client.WebsocketClient;
-import com.ms.notification.service.NotificationClientService;
+import com.ms.notification.service.NotificationService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,11 +24,11 @@ import static main.java.com.leon.baobui.constants.WebsocketConstants.TOPIC_TWEET
 @RequiredArgsConstructor
 public class NotificationApiController {
     private final WebsocketClient webSocketClient;
-    private final NotificationClientService notificationClientService;
+    private final NotificationService notificationService;
 
     @PostMapping(TWEET)
     public ResponseEntity<NotificationResponse> sendTweetNotification(@RequestBody NotificationRequest notificationRequest) {
-        NotificationResponse notification = notificationClientService.sendNotification(notificationRequest);
+        NotificationResponse notification = notificationService.sendNotification(notificationRequest);
         sendTopicNotification(notification, notification.getTweet().getAuthorId());
         webSocketClient.send(TOPIC_FEED, notification);
         webSocketClient.send(TOPIC_TWEET + notification.getTweet().getId(), notification);

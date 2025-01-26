@@ -1,7 +1,10 @@
 package com.ms.notification.repository;
 
 import com.ms.notification.model.Notification;
+import com.ms.notification.model.projection.NotificationProjection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +25,10 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
                                       @Param("tweetId") Long tweetId,
                                       @Param("authUserId") Long authUserId,
                                       @Param("notificationType") NotificationType type);
+
+    @Query("SELECT notification FROM Notification notification " +
+            "WHERE notification.notifiedUserId = :userId " +
+            "AND notification.notificationType = 'MENTION' " +
+            "ORDER BY notification.date DESC")
+    Page<NotificationProjection> getNotificationsByUserId(@Param("userId") Long userId, Pageable pageable);
 }
