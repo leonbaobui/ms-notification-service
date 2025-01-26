@@ -52,7 +52,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation 'io.github.leonbaobui:common-lib:0.0.7-SNAPSHOT'
+	implementation 'io.github.leonbaobui:common-lib:0.0.8-SNAPSHOT'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
