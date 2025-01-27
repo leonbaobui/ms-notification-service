@@ -13,6 +13,6 @@ public class UserNotificationProducer {
     private final KafkaTemplate<String, Long> notificationProducer;
 
     public void resetNotificationCount(Long userId) {
-        notificationProducer.send(KafkaTopicConstants.UPDATE_USER_NOTIFICATIONS_COUNT_TOPIC, userId);
+        notificationProducer.send(KafkaTopicConstants.RESET_USER_NOTIFICATIONS_COUNT_TOPIC, userId);
     }
 }
