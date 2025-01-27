@@ -28,7 +28,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     @Query("SELECT notification FROM Notification notification " +
             "WHERE notification.notifiedUserId = :userId " +
-            "AND notification.notificationType = 'MENTION' " +
+            "AND notification.notificationType NOT IN ('TWEET', 'MENTION') " +
             "ORDER BY notification.date DESC")
     Page<NotificationProjection> getNotificationsByUserId(@Param("userId") Long userId, Pageable pageable);
 }
